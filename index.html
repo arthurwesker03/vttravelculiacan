@@ -38,58 +38,29 @@
         100% { box-shadow: 0 0 0 0 rgba(0, 209, 255, 0); }
       }
 
-      /* --- NUEVO ESTILO Y ANIMACIÓN NEÓN 3D PARA EL TÍTULO VT --- */
+      /* TÍTULO 3D PC Y MÓVIL */
       @keyframes textGlow3D {
         0%, 100% {
-          text-shadow: 
-            /* Capas de profundidad 3D */
-            0 1px 0 #1B365D,
-            0 2px 0 #1B365D,
-            0 3px 0 #00D1FF,
-            0 4px 0 #00D1FF,
-            /* Capas de brillo de neón */
-            0 5px 10px rgba(0, 209, 255, 0.8),
-            0 5px 20px rgba(0, 209, 255, 0.6),
-            0 5px 40px rgba(0, 209, 255, 0.4);
+          text-shadow: 0 1px 0 #1B365D, 0 2px 0 #1B365D, 0 3px 0 #00D1FF, 0 4px 0 #00D1FF, 0 5px 10px rgba(0, 209, 255, 0.8);
           transform: translateY(0);
         }
         50% {
-          text-shadow: 
-            /* Capas de profundidad 3D más profundas */
-            0 1px 0 #fff,
-            0 2px 0 #fff,
-            0 3px 0 #00D1FF,
-            0 4px 0 #00D1FF,
-            0 5px 0 #fff,
-            0 6px 0 #fff,
-            /* Capas de brillo de neón más intensas */
-            0 7px 15px rgba(255, 255, 255, 0.9),
-            0 7px 30px rgba(0, 209, 255, 0.7),
-            0 7px 60px rgba(0, 209, 255, 0.5);
-          transform: translateY(-8px); /* Movimiento suave hacia arriba */
+          text-shadow: 0 1px 0 #fff, 0 2px 0 #fff, 0 3px 0 #00D1FF, 0 4px 0 #00D1FF, 0 5px 15px rgba(255, 255, 255, 0.8);
+          transform: translateY(-5px);
         }
       }
 
       .vt-title-3d {
-        font-family: 'Montserrat', sans-serif; /* Usamos una fuente gruesa y premium */
         font-weight: 900;
         text-transform: uppercase;
-        color: #fff; /* Texto base blanco */
-        letter-spacing: 0.1em;
-        /* Efecto 3D y brillo de neón */
-        text-shadow: 
-          0 1px 0 #1B365D,
-          0 2px 0 #1B365D,
-          0 3px 0 #00D1FF,
-          0 4px 0 #00D1FF,
-          0 5px 10px rgba(0, 209, 255, 0.8),
-          0 5px 20px rgba(0, 209, 255, 0.6),
-          0 5px 40px rgba(0, 209, 255, 0.4);
-        /* Animación continua */
+        color: #fff;
         animation: textGlow3D 3s ease-in-out infinite;
-        display: inline-block; /* Para que la animación de movimiento funcione */
+        display: inline-block;
+        /* Tamaño PC por defecto */
+        font-size: 5rem;
       }
 
+      /* NAV Y LOGO PC */
       .nav-premium-container {
         position: sticky;
         top: 150px; 
@@ -102,7 +73,6 @@
         background: linear-gradient(90deg, #1B365D, #00D1FF, #1B365D, #00D1FF);
         background-size: 200% auto;
         animation: borderRotate 4s linear infinite;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
       }
 
       .nav-premium-inner {
@@ -113,7 +83,6 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        width: 100%;
         height: 80px;
         position: relative;
       }
@@ -123,26 +92,21 @@
         left: -20px;
         top: 50%;
         transform: translateY(-50%);
-        width: 450px !important; 
+        width: 450px; 
         height: auto;
         z-index: 150;
         filter: drop-shadow(0 0 15px rgba(0, 209, 255, 0.5));
-        pointer-events: auto;
       }
 
-      .nav-elements-right {
-        display: flex;
-        gap: 2rem;
-        align-items: center;
-        margin-left: auto; 
-      }
-      
-      .btn-contact-premium {
-        animation: contactPulse 2s infinite;
-      }
+      .main-content { margin-top: 350px; }
 
-      .main-content {
-        margin-top: 350px; 
+      /* AJUSTES EXCLUSIVOS PARA MÓVIL (Pantallas menores a 768px) */
+      @media (max-width: 767px) {
+        .logo-premium { width: 220px; left: -10px; }
+        .nav-premium-inner { padding: 1rem 1rem; }
+        .vt-title-3d { font-size: 2.2rem; }
+        .main-content { margin-top: 280px; }
+        .nav-premium-container { top: 80px; } /* Sube la barra un poco solo en móvil */
       }
 
       .card-modern { 
@@ -151,32 +115,21 @@
         border-radius: 2.5rem; height: 380px; border: 1px solid rgba(0,209,255,0.1);
       }
       
-      .card-modern::before {
-        content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
-        transform: skewX(-25deg); transition: 0.7s; z-index: 5;
-      }
-      
-      .card-modern:hover::before { left: 150%; }
-      
       .card-modern:hover { 
         transform: translateY(-15px) scale(1.05); 
         box-shadow: 0 0 40px rgba(0,209,255,0.6); 
         border-color: #00D1FF; 
-        z-index: 20; 
       }
 
       .card-modern img { transition: transform 0.8s ease; width: 100%; height: 100%; object-fit: cover; }
-      .card-modern:hover img { transform: scale(1.1); }
-      
       .overlay-gradient { background: linear-gradient(to top, rgba(27, 54, 93, 0.9) 0%, transparent 100%); }
       
       #world-slideshow { position: fixed; inset: 0; z-index: -1; opacity: 0.4; background-size: cover; background-position: center; transition: background-image 2s; background-color: #0f172a; }
       .info-modal { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); align-items: center; justify-content: center; padding: 20px; }
       .modal-box { background: #1B365D; border: 2px solid #00D1FF; border-radius: 2.5rem; width: 100%; max-width: 500px; padding: 45px; text-align: center; position: relative; }
-      #adminPanel { display:none; position:fixed; inset:0; z-index:1000; background:rgba(15, 23, 42, 0.98); padding:40px; overflow-y:auto; backdrop-filter: blur(10px); }
-      .admin-input { background: #1e293b; border: 1px solid #334155; padding: 10px; border-radius: 10px; width: 100%; color: white; margin-bottom: 8px; font-size: 13px; }
-      .floating-icon { position: fixed; bottom: 30px; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; color: white; z-index: 500; transition: all 0.3s; }
+      #adminPanel { display:none; position:fixed; inset:0; z-index:1000; background:rgba(15, 23, 42, 0.98); padding:40px; overflow-y:auto; }
+      .admin-input { background: #1e293b; border: 1px solid #334155; padding: 10px; border-radius: 10px; width: 100%; color: white; margin-bottom: 8px; }
+      .floating-icon { position: fixed; bottom: 30px; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; color: white; z-index: 500; }
       .icon-wa { right: 30px; background: #25D366; }
       .icon-ig { right: 110px; background: #E1306C; }
     </style>
@@ -188,8 +141,8 @@
 
     <div class="nav-premium-container">
         <nav class="nav-premium-inner">
-            <img src="image_0.png" alt="VT Travel" class="logo-premium cursor-pointer">
-            <div class="nav-elements-right gap-4 md:gap-8 items-center font-black text-[10px] md:text-xs uppercase text-white italic tracking-tighter">
+            <img src="image_0.png" alt="VT Travel" class="logo-premium">
+            <div class="flex gap-4 md:gap-8 items-center font-black text-[10px] md:text-xs uppercase text-white italic tracking-tighter ml-auto">
                 <button onclick="showPop('ubicacion')" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
                     <i class="fas fa-location-dot text-cyan-400"></i> Ubicación
                 </button>
@@ -216,11 +169,10 @@
     </div>
 
     <main class="main-content py-12 px-4 md:px-20 max-w-[1400px] mx-auto relative z-10">
-        <div class="text-center mb-12">
-          <h1 class="text-6xl md:text-8xl vt-title-3d drop-shadow-2xl">
-            CATÁLOGO VT
-          </h1>
-          <p class="text-slate-400 text-xl font-black uppercase tracking-widest italic mt-4 opacity-70">Explora el mundo con estilo premium</p>
+        <div class="text-center mb-16">
+            <h1 class="vt-title-3d italic">
+                CATÁLOGO VT
+            </h1>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="gridPrincipal"></div>
     </main>
@@ -239,8 +191,8 @@
         ];
 
         const info = {
-            ubicacion: `<i class="fas fa-map-location-dot text-6xl text-cyan-400 mb-6"></i><h2 class="text-3xl font-black italic mb-4 uppercase text-white">DIRECCIÓN</h2><p class="text-lg mb-8 italic text-white">Estado de Sonora 1411-A, Las Quintas, 80060 Culiacán Rosales, Sin.</p><a href="https://maps.app.goo.gl/9ZpS91" target="_blank" class="bg-cyan-400 text-slate-900 font-black py-4 px-12 rounded-full uppercase text-xs shadow-lg inline-block">Abrir Mapa</a>`,
-            contacto: `<i class="fas fa-phone-volume text-6xl text-cyan-400 mb-6"></i><h2 class="text-3xl font-black italic mb-4 uppercase text-white">TELÉFONOS</h2><p class="text-2xl font-black text-white underline italic mb-2">667 445 3071</p><p class="text-2xl font-black text-white underline italic mb-4">667 445 3072</p><p class="text-lg text-cyan-400 italic font-bold">candyojeda@hotmail.com</p>`
+            ubicacion: `<i class="fas fa-map-location-dot text-6xl text-cyan-400 mb-6"></i><h2 class="text-3xl font-black italic mb-4 uppercase text-white">DIRECCIÓN</h2><p class="text-lg mb-8 italic text-white">Estado de Sonora 1411-A, Las Quintas, 80060 Culiacán Rosales, Sin.</p><a href="http://googleusercontent.com/maps.google.com/6" target="_blank" class="bg-cyan-400 text-slate-900 font-black py-4 px-12 rounded-full uppercase text-xs shadow-lg inline-block">Abrir Mapa</a>`,
+            contacto: `<i class="fas fa-phone-volume text-6xl text-cyan-400 mb-6"></i><h2 class="text-3xl font-black italic mb-4 uppercase text-white">TELÉFONOS</h2><p class="text-2xl font-black text-white underline italic mb-2">667 445 3071</p><p class="text-2xl font-black text-white underline italic mb-4">667 445 3072</p>`
         };
 
         function render(data = {}) {
@@ -265,7 +217,7 @@
 
         const bgImg = ['https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&w=1600', 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&w=1600'];
         let bgI = 0;
-        function updateSlide() { const slide = document.getElementById('world-slideshow'); if(slide) { slide.style.backgroundImage = `url('${bgImg[bgI]}')`; bgI = (bgI + 1) % bgImg.length; new Image().src = bgImg[bgI]; } }
+        function updateSlide() { const slide = document.getElementById('world-slideshow'); if(slide) { slide.style.backgroundImage = `url('${bgImg[bgI]}')`; bgI = (bgI + 1) % bgImg.length; } }
         updateSlide(); setInterval(updateSlide, 6000);
     </script>
 </body>
