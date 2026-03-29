@@ -38,6 +38,58 @@
         100% { box-shadow: 0 0 0 0 rgba(0, 209, 255, 0); }
       }
 
+      /* --- NUEVO ESTILO Y ANIMACIÓN NEÓN 3D PARA EL TÍTULO VT --- */
+      @keyframes textGlow3D {
+        0%, 100% {
+          text-shadow: 
+            /* Capas de profundidad 3D */
+            0 1px 0 #1B365D,
+            0 2px 0 #1B365D,
+            0 3px 0 #00D1FF,
+            0 4px 0 #00D1FF,
+            /* Capas de brillo de neón */
+            0 5px 10px rgba(0, 209, 255, 0.8),
+            0 5px 20px rgba(0, 209, 255, 0.6),
+            0 5px 40px rgba(0, 209, 255, 0.4);
+          transform: translateY(0);
+        }
+        50% {
+          text-shadow: 
+            /* Capas de profundidad 3D más profundas */
+            0 1px 0 #fff,
+            0 2px 0 #fff,
+            0 3px 0 #00D1FF,
+            0 4px 0 #00D1FF,
+            0 5px 0 #fff,
+            0 6px 0 #fff,
+            /* Capas de brillo de neón más intensas */
+            0 7px 15px rgba(255, 255, 255, 0.9),
+            0 7px 30px rgba(0, 209, 255, 0.7),
+            0 7px 60px rgba(0, 209, 255, 0.5);
+          transform: translateY(-8px); /* Movimiento suave hacia arriba */
+        }
+      }
+
+      .vt-title-3d {
+        font-family: 'Montserrat', sans-serif; /* Usamos una fuente gruesa y premium */
+        font-weight: 900;
+        text-transform: uppercase;
+        color: #fff; /* Texto base blanco */
+        letter-spacing: 0.1em;
+        /* Efecto 3D y brillo de neón */
+        text-shadow: 
+          0 1px 0 #1B365D,
+          0 2px 0 #1B365D,
+          0 3px 0 #00D1FF,
+          0 4px 0 #00D1FF,
+          0 5px 10px rgba(0, 209, 255, 0.8),
+          0 5px 20px rgba(0, 209, 255, 0.6),
+          0 5px 40px rgba(0, 209, 255, 0.4);
+        /* Animación continua */
+        animation: textGlow3D 3s ease-in-out infinite;
+        display: inline-block; /* Para que la animación de movimiento funcione */
+      }
+
       .nav-premium-container {
         position: sticky;
         top: 150px; 
@@ -62,21 +114,20 @@
         justify-content: space-between;
         align-items: center;
         width: 100%;
-        height: 100%;
+        height: 80px;
         position: relative;
       }
 
       .logo-premium {
         position: absolute;
-        left: 3rem; 
+        left: -20px;
         top: 50%;
-        transform: translateY(-50%) scale(1);
-        width: 900px; 
+        transform: translateY(-50%);
+        width: 450px !important; 
         height: auto;
-        max-height: none; 
-        transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
-        z-index: 10;
-        filter: drop-shadow(0 0 20px rgba(0, 209, 255, 0.8));
+        z-index: 150;
+        filter: drop-shadow(0 0 15px rgba(0, 209, 255, 0.5));
+        pointer-events: auto;
       }
 
       .nav-elements-right {
@@ -84,7 +135,6 @@
         gap: 2rem;
         align-items: center;
         margin-left: auto; 
-        padding-left: 930px; 
       }
       
       .btn-contact-premium {
@@ -95,14 +145,12 @@
         margin-top: 350px; 
       }
 
-      /* --- RESTAURACIÓN DE ANIMACIONES PREMIUM DE CUADROS --- */
       .card-modern { 
         transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); 
         cursor: pointer; position: relative; overflow: hidden; 
         border-radius: 2.5rem; height: 380px; border: 1px solid rgba(0,209,255,0.1);
       }
       
-      /* Destello de brillo */
       .card-modern::before {
         content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
         background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
@@ -111,7 +159,6 @@
       
       .card-modern:hover::before { left: 150%; }
       
-      /* Animación de elevación y resplandor */
       .card-modern:hover { 
         transform: translateY(-15px) scale(1.05); 
         box-shadow: 0 0 40px rgba(0,209,255,0.6); 
@@ -169,7 +216,12 @@
     </div>
 
     <main class="main-content py-12 px-4 md:px-20 max-w-[1400px] mx-auto relative z-10">
-        <div class="text-center mb-12"><h1 class="text-6xl md:text-8xl font-black italic uppercase drop-shadow-2xl">CATÁLOGO <span class="text-cyan-400">VT</span></h1></div>
+        <div class="text-center mb-12">
+          <h1 class="text-6xl md:text-8xl vt-title-3d drop-shadow-2xl">
+            CATÁLOGO VT
+          </h1>
+          <p class="text-slate-400 text-xl font-black uppercase tracking-widest italic mt-4 opacity-70">Explora el mundo con estilo premium</p>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="gridPrincipal"></div>
     </main>
 
@@ -187,7 +239,7 @@
         ];
 
         const info = {
-            ubicacion: `<i class="fas fa-map-location-dot text-6xl text-cyan-400 mb-6"></i><h2 class="text-3xl font-black italic mb-4 uppercase text-white">DIRECCIÓN</h2><p class="text-lg mb-8 italic text-white">Estado de Sonora 1411-A, Las Quintas, 80060 Culiacán Rosales, Sin.</p><a href="https://www.google.com/maps/search/?api=1&query=Vt+Travel+Culiacan+Las+Quintas" target="_blank" class="bg-cyan-400 text-slate-900 font-black py-4 px-12 rounded-full uppercase text-xs shadow-lg inline-block">Abrir Mapa</a>`,
+            ubicacion: `<i class="fas fa-map-location-dot text-6xl text-cyan-400 mb-6"></i><h2 class="text-3xl font-black italic mb-4 uppercase text-white">DIRECCIÓN</h2><p class="text-lg mb-8 italic text-white">Estado de Sonora 1411-A, Las Quintas, 80060 Culiacán Rosales, Sin.</p><a href="https://maps.app.goo.gl/9ZpS91" target="_blank" class="bg-cyan-400 text-slate-900 font-black py-4 px-12 rounded-full uppercase text-xs shadow-lg inline-block">Abrir Mapa</a>`,
             contacto: `<i class="fas fa-phone-volume text-6xl text-cyan-400 mb-6"></i><h2 class="text-3xl font-black italic mb-4 uppercase text-white">TELÉFONOS</h2><p class="text-2xl font-black text-white underline italic mb-2">667 445 3071</p><p class="text-2xl font-black text-white underline italic mb-4">667 445 3072</p><p class="text-lg text-cyan-400 italic font-bold">candyojeda@hotmail.com</p>`
         };
 
