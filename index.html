@@ -6,162 +6,162 @@
     <title>VT Travel | Catálogo Premium</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: { vt_oxford: '#1B365D', vt_cyan: '#00D1FF' }
-          }
-        }
-      }
+    
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCyvhxSpo4rsYy7NT1pRwMXepl0ILHynN4",
+        authDomain: "vt-travel-catalogo.firebaseapp.com",
+        projectId: "vt-travel-catalogo",
+        databaseURL: "https://vt-travel-catalogo-default-rtdb.firebaseio.com/",
+        storageBucket: "vt-travel-catalogo.firebasestorage.app",
+        messagingSenderId: "1007851715418",
+        appId: "1:1007851715418:web:03b5f541f645038612d163"
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      window.db = db; window.dbRef = ref; window.dbSet = set; window.dbOnValue = onValue;
     </script>
+
     <style>
       .card-modern { 
         transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); 
-        cursor: pointer; 
-        position: relative; 
-        overflow: hidden; 
-        border-radius: 2.5rem; 
-        height: 380px; 
-        border: 1px solid rgba(0,209,255,0.1);
+        cursor: pointer; position: relative; overflow: hidden; 
+        border-radius: 2.5rem; height: 380px; border: 1px solid rgba(0,209,255,0.1);
       }
-      
-      /* --- EFECTO DE REFLEJO TIPO CRISTAL --- */
       .card-modern::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 50%;
-        height: 100%;
+        content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
         background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
-        transform: skewX(-25deg);
-        transition: 0.7s;
-        z-index: 5;
+        transform: skewX(-25deg); transition: 0.7s; z-index: 5;
       }
-      .card-modern:hover::before {
-        left: 150%;
-      }
-
-      .card-modern:hover { 
-        transform: translateY(-15px) scale(1.05); 
-        box-shadow: 0 0 40px rgba(0,209,255,0.6); 
-        border-color: #00D1FF;
-        z-index: 20;
-      }
+      .card-modern:hover::before { left: 150%; }
+      .card-modern:hover { transform: translateY(-15px) scale(1.05); box-shadow: 0 0 40px rgba(0,209,255,0.6); border-color: #00D1FF; z-index: 20; }
       .card-modern img { transition: transform 0.8s ease; width: 100%; height: 100%; object-fit: cover; }
       .card-modern:hover img { transform: scale(1.1); }
       
       .overlay-gradient { background: linear-gradient(to top, rgba(27, 54, 93, 0.9) 0%, transparent 100%); }
-      #world-slideshow { position: fixed; inset: 0; z-index: -1; opacity: 0.5; background-size: cover; background-position: center; transition: background-image 2s ease-in-out; }
+      #world-slideshow { position: fixed; inset: 0; z-index: -1; opacity: 0.4; background-size: cover; background-position: center; transition: background-image 2s; }
+      
       .info-modal { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); align-items: center; justify-content: center; padding: 20px; }
       .modal-box { background: #1B365D; border: 2px solid #00D1FF; border-radius: 2.5rem; width: 100%; max-width: 500px; padding: 45px; text-align: center; position: relative; }
-      .gallery-modal { display: none; position: fixed; z-index: 400; inset: 0; background: rgba(0,0,0,0.98); backdrop-filter: blur(20px); }
-      .mySlides { display: none; text-align: center; }
-      .mySlides img { max-height: 70vh; border-radius: 2rem; margin: auto; border: 3px solid #00D1FF; }
       
-      @keyframes dance {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-20px); }
-      }
-
-      .floating-icon { position: fixed; bottom: 30px; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; color: white; z-index: 500; transition: all 0.3s; box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
+      #adminPanel { display:none; position:fixed; inset:0; z-index:1000; background:rgba(15, 23, 42, 0.98); padding:40px; overflow-y:auto; backdrop-filter: blur(10px); }
+      .admin-input { background: #1e293b; border: 1px solid #334155; padding: 10px; border-radius: 10px; width: 100%; color: white; margin-bottom: 8px; font-size: 13px; }
+      
+      @keyframes dance { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+      .floating-icon { position: fixed; bottom: 30px; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; color: white; z-index: 500; transition: all 0.3s; }
       .icon-wa { right: 30px; background: #25D366; animation: dance 2s infinite ease-in-out; }
       .icon-ig { right: 110px; background: #E1306C; animation: dance 2.2s infinite ease-in-out; }
-      .floating-icon:hover { animation-play-state: paused; transform: scale(1.1); }
     </style>
 </head>
-<body class="bg-slate-900 font-sans text-white">
+<body class="bg-slate-900 text-white">
 
     <div id="world-slideshow"></div>
 
     <a href="https://wa.me/526673717073" target="_blank" class="floating-icon icon-wa"><i class="fab fa-whatsapp"></i></a>
     <a href="https://www.instagram.com/vttravel_viajes/" target="_blank" class="floating-icon icon-ig"><i class="fab fa-instagram"></i></a>
 
-    <nav class="bg-white/95 backdrop-blur-md p-4 sticky top-0 z-50 flex justify-between items-center px-6 md:px-20 border-b-4 border-vt_cyan shadow-2xl">
+    <nav class="bg-white/95 backdrop-blur-md p-4 sticky top-0 z-50 flex justify-between items-center px-6 md:px-20 border-b-4 border-cyan-400 shadow-2xl">
         <img src="image_0.png" alt="VT Travel" class="h-14">
-        <div class="hidden md:flex gap-8 items-center font-black text-xs uppercase text-vt_oxford italic tracking-tighter">
-            <button onclick="showPop('ubicacion')" class="hover:text-vt_cyan transition-colors"><i class="fas fa-location-dot text-vt_cyan"></i> Ubicación</button>
-            <button onclick="showPop('contacto')" class="bg-vt_oxford text-white px-9 py-3 rounded-full hover:bg-vt_cyan hover:text-vt_oxford transition-all uppercase">Contacto</button>
+        <div class="hidden md:flex gap-8 items-center font-black text-xs uppercase text-slate-800 italic tracking-tighter">
+            <button onclick="showPop('ubicacion')" class="hover:text-cyan-500 transition-colors"><i class="fas fa-location-dot text-cyan-400"></i> Ubicación</button>
+            <button onclick="showPop('contacto')" class="bg-slate-800 text-white px-9 py-3 rounded-full hover:bg-cyan-400 hover:text-slate-800 transition-all">Contacto</button>
         </div>
     </nav>
 
     <div id="infoPop" class="info-modal" onclick="if(event.target == this) hidePop()">
-        <div class="modal-box"><button onclick="hidePop()" class="absolute top-4 right-6 text-3xl text-vt_cyan">×</button><div id="popContent"></div></div>
+        <div class="modal-box"><button onclick="hidePop()" class="absolute top-4 right-6 text-3xl text-cyan-400">×</button><div id="popContent"></div></div>
+    </div>
+
+    <div id="adminPanel">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl font-black italic text-cyan-400 mb-8 uppercase">Gestor Arthur</h2>
+            <div id="listaAdmin" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+            <button onclick="cerrarAdmin()" class="mt-8 bg-red-500 px-10 py-3 rounded-full font-bold">CERRAR PANEL</button>
+        </div>
     </div>
 
     <main class="py-16 px-4 md:px-20 max-w-[1400px] mx-auto relative z-10">
-        <div class="text-center mb-12"><h1 class="text-6xl md:text-8xl font-black italic uppercase drop-shadow-2xl">CATÁLOGO <span class="text-vt_cyan">VT</span></h1></div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="card-modern lg:col-span-2" onclick="openGal(1)"><img src="https://images.unsplash.com/photo-1506929113675-b9299d39c1f2?auto=format&w=1200"><div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end"><h3 class="text-4xl font-black italic uppercase">Playas</h3></div></div>
-            <div class="card-modern lg:col-span-2" onclick="openGal(2)"><img src="https://images.unsplash.com/photo-1493936734716-77ba6da66365?auto=format&w=1200"><div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end text-right"><h3 class="text-4xl font-black italic uppercase">Europa</h3></div></div>
-            <div class="card-modern" onclick="openGal(3)"><img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&w=800"><div class="absolute inset-0 overlay-gradient p-8 flex flex-col justify-end"><h3 class="text-2xl font-black italic uppercase">Cruceros</h3></div></div>
-            <div class="card-modern" onclick="openGal(4)"><img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&w=800"><div class="absolute inset-0 overlay-gradient p-8 flex flex-col justify-end"><h3 class="text-2xl font-black italic uppercase">Lunas de Miel</h3></div></div>
-            <div class="card-modern" onclick="openGal(5)"><img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&w=800"><div class="absolute inset-0 overlay-gradient p-8 flex flex-col justify-end text-right"><h3 class="text-2xl font-black italic uppercase">Viajes de XV</h3></div></div>
-            <div class="card-modern" onclick="openGal(6)"><img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&w=800"><div class="absolute inset-0 overlay-gradient p-8 flex flex-col justify-end"><h3 class="text-2xl font-black italic uppercase">Asia</h3></div></div>
-            <div class="card-modern lg:col-span-2" onclick="openGal(7)"><img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&w=1200"><div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end text-right"><h3 class="text-3xl font-black italic uppercase">África</h3></div></div>
-            <div class="card-modern lg:col-span-2" onclick="openGal(8)"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&w=1200"><div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end"><h3 class="text-4xl font-black italic uppercase">Hoteles</h3></div></div>
-        </div>
+        <div class="text-center mb-12"><h1 class="text-6xl md:text-8xl font-black italic uppercase drop-shadow-2xl">CATÁLOGO <span class="text-cyan-400">VT</span></h1></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="gridPrincipal"></div>
     </main>
 
-    <div id="galModal" class="gallery-modal">
-        <span class="absolute top-5 right-10 text-6xl text-white cursor-pointer z-[500]" onclick="closeGal()">×</span>
-        <div class="relative top-1/2 -translate-y-1/2 w-full text-center" id="galContent"></div>
-        <button class="absolute left-10 top-1/2 text-6xl text-vt_cyan" onclick="plus(-1)">❮</button>
-        <button class="absolute right-10 top-1/2 text-6xl text-vt_cyan" onclick="plus(1)">❯</button>
-    </div>
-
     <script>
+        const cats = [
+            {id: 1, n: 'Playas', s: 2, d: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e'},
+            {id: 2, n: 'Europa', s: 2, d: 'https://images.unsplash.com/photo-1493936734716-77ba6da66365'},
+            {id: 3, n: 'Cruceros', s: 1, d: 'https://images.unsplash.com/photo-1548574505-5e239809ee19'},
+            {id: 4, n: 'Lunas de Miel', s: 1, d: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed'},
+            {id: 5, n: 'Viajes de XV', s: 1, d: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7'},
+            {id: 6, n: 'Asia', s: 1, d: 'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d'},
+            {id: 7, n: 'Canadá', s: 1, d: 'https://images.unsplash.com/photo-1517935703635-2717079c21eb'},
+            {id: 8, n: 'África', s: 1, d: 'https://images.unsplash.com/photo-1516426122078-c23e76319801'},
+            {id: 9, n: 'Hoteles', s: 2, d: 'https://images.unsplash.com/photo-1566073771259-6a8506099945'}
+        ];
+
         const info = {
             ubicacion: `
-                <i class="fas fa-map-location-dot text-6xl text-vt_cyan mb-6"></i>
+                <i class="fas fa-map-location-dot text-6xl text-cyan-400 mb-6"></i>
                 <h2 class="text-3xl font-black italic mb-4 uppercase">DIRECCIÓN</h2>
                 <p class="text-lg mb-8">Estado de Sonora 1411-A, Las Quintas, 80060 Culiacán Rosales, Sin.</p>
-                <a href="https://www.google.com/maps/search/?api=1&query=VT+Travel+Las+Quintas+Culiacan" target="_blank" class="bg-vt_cyan text-vt_oxford font-black py-4 px-12 rounded-full uppercase italic shadow-lg inline-block">Abrir Mapa</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Vt+Travel+Culiacan+Las+Quintas" target="_blank" class="bg-cyan-400 text-slate-900 font-black py-4 px-12 rounded-full uppercase italic shadow-lg inline-block">Abrir Mapa</a>
             `,
             contacto: `
-                <i class="fas fa-phone-volume text-6xl text-vt_cyan mb-6"></i>
+                <i class="fas fa-phone-volume text-6xl text-cyan-400 mb-6"></i>
                 <h2 class="text-3xl font-black italic mb-4 uppercase">TELÉFONOS</h2>
-                <p class="text-2xl font-black text-white underline italic">667 445 3071</p>
-                <p class="text-2xl font-black text-white underline italic mb-6">667 445 3072</p>
-                <p class="text-lg text-vt_cyan italic">candyojeda@hotmail.com</p>
+                <p class="text-2xl font-black text-white underline italic mb-2">667 445 3071</p>
+                <p class="text-2xl font-black text-white underline italic mb-2">667 445 3072</p>
+                <p class="text-lg text-cyan-400 italic">candyojeda@hotmail.com</p>
             `
         };
 
-        const fotos = {
-            1:[{s:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e',t:'Cancún'},{s:'https://images.unsplash.com/photo-1510414842594-a61c69b5ae57',t:'Maldivas'}],
-            2:[{s:'https://images.unsplash.com/photo-1502602898657-3e91760cbb34',t:'París'},{s:'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9',t:'Venecia'}],
-            3:[{s:'https://images.unsplash.com/photo-1548574505-5e239809ee19',t:'Cruceros'}],
-            4:[{s:'https://images.unsplash.com/photo-1544550581-5f7ceaf7f992',t:'Maldivas'}],
-            5:[{s:'https://images.unsplash.com/photo-1502602898657-3e91760cbb34',t:'Europa'}],
-            6:[{s:'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d',t:'Japón'}],
-            7:[{s:'https://images.unsplash.com/photo-1516426122078-c23e76319801',t:'Safari'}],
-            8:[{s:'https://images.unsplash.com/photo-1566073771259-6a8506099945',t:'Resorts'}]
-        };
+        function init() {
+            if(window.dbOnValue) {
+                window.dbOnValue(window.dbRef(window.db, 'catalogo'), (snap) => render(snap.val() || {}));
+            } else { setTimeout(init, 100); }
+        }
+        init();
+
+        function render(data) {
+            const grid = document.getElementById('gridPrincipal');
+            const admin = document.getElementById('listaAdmin');
+            grid.innerHTML = ''; admin.innerHTML = '';
+
+            cats.forEach(c => {
+                const url = data[c.id] || c.d;
+                grid.innerHTML += `
+                    <div class="card-modern ${c.s === 2 ? 'lg:col-span-2' : ''}">
+                        <img src="${url}">
+                        <div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end">
+                            <h3 class="${c.s === 2 ? 'text-4xl' : 'text-2xl'} font-black italic uppercase">${c.n}</h3>
+                        </div>
+                    </div>`;
+
+                admin.innerHTML += `
+                    <div class="bg-slate-800 p-4 rounded-3xl border border-slate-700">
+                        <p class="font-bold text-cyan-400 mb-2 text-xs uppercase italic">${c.n}</p>
+                        <input type="text" id="in-${c.id}" value="${url}" class="admin-input">
+                        <button onclick="actualizar(${c.id})" class="w-full bg-cyan-500 text-slate-900 font-bold py-2 rounded-xl text-[10px]">GUARDAR</button>
+                    </div>`;
+            });
+        }
+
+        function actualizar(id) {
+            window.dbSet(window.dbRef(window.db, 'catalogo/' + id), document.getElementById(`in-${id}`).value);
+            alert("¡Actualizado!");
+        }
 
         function showPop(t){ document.getElementById('popContent').innerHTML = info[t]; document.getElementById('infoPop').style.display='flex'; }
         function hidePop(){ document.getElementById('infoPop').style.display='none'; }
-        
-        let sI = 1;
-        function openGal(id){
-            const c = document.getElementById('galContent'); c.innerHTML = '';
-            fotos[id].forEach(f => { c.innerHTML += `<div class="mySlides"><img src="${f.s}?auto=format&w=1200" class="mx-auto shadow-2xl"><p class="text-vt_cyan text-4xl font-black mt-6 uppercase italic tracking-widest">${f.t}</p></div>`; });
-            document.getElementById('galModal').style.display='block'; sI=1; show(sI);
-        }
-        function closeGal(){ document.getElementById('galModal').style.display='none'; }
-        function plus(n){ show(sI+=n); }
-        function show(n){
-            let s = document.getElementsByClassName("mySlides");
-            if(n>s.length)sI=1; if(n<1)sI=s.length;
-            for(let i=0;i<s.length;i++)s[i].style.display="none";
-            s[sI-1].style.display="block";
-        }
+        function cerrarAdmin() { document.getElementById('adminPanel').style.display = 'none'; }
+        window.addEventListener('keydown', (e) => { if(e.key === "Escape") { const p = prompt("Pass:"); if(p === "VT2026") document.getElementById('adminPanel').style.display = 'block'; } });
 
         const bgImg = ['https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&w=1600','https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&w=1600'];
         let bgI = 0;
-        function rot(){ document.getElementById('world-slideshow').style.backgroundImage=`url('${bgImg[bgI]}')`; bgI=(bgI+1)%bgImg.length; }
-        rot(); setInterval(rot, 5000);
+        setInterval(() => { document.getElementById('world-slideshow').style.backgroundImage=`url('${bgImg[bgI]}')`; bgI = (bgI + 1) % bgImg.length; }, 6000);
     </script>
 </body>
 </html>
