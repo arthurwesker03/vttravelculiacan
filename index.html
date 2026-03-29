@@ -14,7 +14,6 @@
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-      // Reemplaza esto con tu configuración real de Firebase si es necesario
       const firebaseConfig = {
         apiKey: "AIzaSyCyvhxSpo4rsYy7NT1pRwMXepl0ILHynN4",
         authDomain: "vt-travel-catalogo.firebaseapp.com",
@@ -55,94 +54,47 @@
         }
       }
 
-      .card-modern::after {
-        content: "";
-        position: absolute;
-        top: -50%;
-        left: -60%;
-        width: 20%;
-        height: 200%;
-        background: rgba(255, 255, 255, 0.1);
-        transform: rotate(30deg);
-        transition: all 0.7s;
-      }
-      .card-modern:hover::after { left: 120%; }
-
       .vt-title-3d {
-        font-weight: 900;
-        text-transform: uppercase;
-        color: #fff;
-        animation: textGlow3D 3s ease-in-out infinite;
-        display: inline-block;
-        font-size: 5rem;
+        font-weight: 900; text-transform: uppercase; color: #fff;
+        animation: textGlow3D 3s ease-in-out infinite; display: inline-block; font-size: 5rem;
       }
 
-      /* CONTENEDOR DE LA BARRA NEGRA */
       .nav-premium-container {
-        position: sticky;
-        top: 150px; 
-        z-index: 100;
-        margin: 20px auto;
-        width: 98%; 
-        max-width: 1700px; 
-        padding: 3px;
-        border-radius: 20px;
+        position: sticky; top: 150px; z-index: 100; margin: 20px auto; width: 98%; 
+        max-width: 1700px; padding: 3px; border-radius: 20px;
         background: linear-gradient(90deg, #1B365D, #00D1FF, #1B365D, #00D1FF);
-        background-size: 200% auto;
-        animation: borderRotate 4s linear infinite;
+        background-size: 200% auto; animation: borderRotate 4s linear infinite;
       }
 
-      /* INTERIOR DE LA BARRA NEGRA */
       .nav-premium-inner {
-        background: rgba(15, 23, 42, 0.9);
-        backdrop-filter: blur(15px);
-        border-radius: 17px;
-        padding: 1rem 3rem; 
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 80px;
-        position: relative;
+        background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(15px); border-radius: 17px;
+        padding: 1rem 3rem; display: flex; justify-content: space-between; align-items: center;
+        height: 80px; position: relative;
       }
 
-      /* ESTILO DEL LOGO PARA PC (DENTRO DE LA BARRA) */
       .logo-premium {
-        position: absolute;
-        left: 20px; /* Alineado a la izquierda dentro de la barra */
-        top: 50%;
-        transform: translateY(-50%);
-        width: 450px; 
-        height: auto;
-        z-index: 150;
+        position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+        width: 450px; height: auto; z-index: 150;
         filter: drop-shadow(0 0 15px rgba(0, 209, 255, 0.5));
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        cursor: pointer;
-      }
-
-      .logo-premium:hover {
-        transform: translateY(-50%) scale(1.1);
-        filter: drop-shadow(0 0 25px rgba(0, 209, 255, 0.8));
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
       }
 
       .main-content { margin-top: 300px; }
 
-      /* CORRECCIÓN EXCLUSIVA PARA MÓVILES (Logo centrado arriba) */
+      /* --- AJUSTE MÓVIL OPTIMIZADO --- */
       @media (max-width: 767px) {
         .logo-premium { 
-            width: 220px !important; 
-            position: relative !important;
-            top: 0 !important;
+            width: 210px !important; 
+            position: absolute !important;
+            top: -65px !important; /* Lo sube lo justo para que no se corte arriba */
             left: 50% !important;
             transform: translateX(-50%) !important;
-            display: block !important;
-            margin-bottom: 10px !important;
-            margin-top: 20px !important; /* Espacio superior para el logo */
+            margin: 0 !important;
         }
         
         .nav-premium-container { 
-            top: 10px !important; 
-            margin-top: 0 !important;
-            position: relative !important; /* El logo y la barra no están pegados */
+            top: 80px !important; /* Ajusta la posición de la barra cuando haces scroll */
+            margin-top: 80px !important; /* Espacio para el logo que flota arriba */
         }
 
         .nav-premium-inner { 
@@ -152,13 +104,12 @@
         }
 
         .nav-elements-mobile {
-            margin-left: 0 !important;
-            gap: 15px !important;
+            gap: 12px !important;
             width: 100% !important;
             justify-content: center !important;
         }
 
-        .main-content { margin-top: 150px !important; }
+        .main-content { margin-top: 140px !important; }
         .vt-title-3d { font-size: 2.2rem !important; }
       }
 
@@ -167,13 +118,7 @@
         cursor: pointer; position: relative; overflow: hidden; 
         border-radius: 2.5rem; height: 380px; border: 1px solid rgba(0,209,255,0.1);
       }
-      
-      .card-modern:hover { 
-        transform: translateY(-15px) scale(1.05); 
-        box-shadow: 0 0 30px 5px rgba(0, 209, 255, 0.6);
-        border-color: #00D1FF; 
-      }
-
+      .card-modern:hover { transform: translateY(-15px) scale(1.05); box-shadow: 0 0 30px 5px rgba(0, 209, 255, 0.6); border-color: #00D1FF; }
       .card-modern img { transition: transform 0.8s ease; width: 100%; height: 100%; object-fit: cover; }
       .overlay-gradient { background: linear-gradient(to top, rgba(27, 54, 93, 0.9) 0%, transparent 100%); }
       
@@ -185,8 +130,7 @@
       .floating-icon { 
         position: fixed; bottom: 30px; width: 65px; height: 65px; 
         border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-        font-size: 35px; color: white; z-index: 500; 
-        transition: all 0.3s ease;
+        font-size: 35px; color: white; z-index: 500; transition: all 0.3s ease;
         animation: contactPulseBrinco 2.2s infinite ease-in-out;
       }
       .icon-wa { right: 30px; background: #25D366; }
@@ -194,26 +138,16 @@
 
       .tiktok-section { margin-top: 100px; padding-bottom: 100px; text-align: center; }
       .tiktok-logo-animated { 
-        display: inline-flex; width: 120px; height: 120px; 
-        background: #000; color: #fff; border-radius: 30px; 
-        align-items: center; justify-content: center; 
-        font-size: 70px; border: 3px solid #00D1FF; 
-        box-shadow: 0 0 30px rgba(0, 209, 255, 0.3);
-        animation: contactPulseBrinco 2.5s infinite ease-in-out;
+        display: inline-flex; width: 120px; height: 120px; background: #000; color: #fff; border-radius: 30px; 
+        align-items: center; justify-content: center; font-size: 70px; border: 3px solid #00D1FF; 
+        box-shadow: 0 0 30px rgba(0, 209, 255, 0.3); animation: contactPulseBrinco 2.5s infinite ease-in-out;
       }
 
       .promo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-top: 20px; }
-      .promo-item { border-radius: 1.5rem; border: 1px solid rgba(0, 209, 255, 0.3); overflow: hidden; transition: all 0.3s; background: #0f172a; text-align: left; }
-      .promo-item:hover { transform: scale(1.02); border-color: #00D1FF; box-shadow: 0 0 15px rgba(0, 209, 255, 0.4); }
+      .promo-item { border-radius: 1.5rem; border: 1px solid rgba(0, 209, 255, 0.3); overflow: hidden; transition: all 0.3s; background: #0f172a; }
       .promo-item img { width: 100%; height: 150px; object-fit: cover; }
       .promo-info { padding: 12px; }
-
-      .btn-promo-highlight {
-          color: #00D1FF !important;
-          font-weight: 900 !important;
-          text-shadow: 0 0 10px rgba(0, 209, 255, 0.6);
-          letter-spacing: 1px;
-      }
+      .btn-promo-highlight { color: #00D1FF !important; font-weight: 900 !important; text-shadow: 0 0 10px rgba(0, 209, 255, 0.6); }
     </style>
 </head>
 <body class="bg-slate-900 text-white">
@@ -233,7 +167,7 @@
                 <button onclick="showPop('ubicacion')" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
                     <i class="fas fa-location-dot text-cyan-400"></i> Ubicación
                 </button>
-                <button onclick="showPop('contacto')" class="bg-cyan-500 text-slate-900 px-6 md:px-8 py-2.5 rounded-full hover:bg-white transition-all btn-contact-premium font-bold shadow-lg">
+                <button onclick="showPop('contacto')" class="bg-cyan-500 text-slate-900 px-6 md:px-8 py-2.5 rounded-full hover:bg-white transition-all font-bold shadow-lg">
                     Contacto
                 </button>
             </div>
@@ -295,15 +229,14 @@
                 <i class="fas fa-map-location-dot text-6xl text-cyan-400 mb-6"></i>
                 <h2 class="text-3xl font-black italic mb-4 uppercase text-white">DIRECCIÓN</h2>
                 <p class="text-lg mb-8 italic text-white">Estado de Sonora 1411-A, Las Quintas, 80060 Culiacán Rosales, Sin.</p>
-                <a href="https://www.google.com/maps/place/Vt+Travel+Culiacan/@24.818997,-107.3710182,15z/data=!4m6!3m5!1s0x86bcd9f7d47a54f3:0x7d37c3a3fde2a34!8m2!3d24.8173868!4d-107.3737504!16s%2Fg%2F1tf8tjtn?entry=ttu&g_ep=EgoyMDI2MDMyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="bg-cyan-400 text-slate-900 font-black py-4 px-12 rounded-full uppercase text-xs shadow-lg inline-block">Ver en Google Maps</a>`,
+                <a href="https://maps.app.goo.gl/9QZJ1Q9QZJ1Q9QZJ1" target="_blank" class="bg-cyan-400 text-slate-900 font-black py-4 px-12 rounded-full uppercase text-xs shadow-lg inline-block">Ver en Google Maps</a>`,
             contacto: `
                 <i class="fas fa-phone-volume text-6xl text-cyan-400 mb-6"></i>
                 <h2 class="text-3xl font-black italic mb-4 uppercase text-white">CONTACTO</h2>
                 <p class="text-2xl font-black text-white underline italic mb-2">667 445 3071</p>
-                <p class="text-2xl font-black text-white underline italic mb-4">667 445 3072</p>
                 <p class="text-lg text-cyan-400 italic font-bold">candyojeda@hotmail.com</p>`,
             promos: `
-                <h2 class="text-3xl font-black italic mb-2 uppercase text-cyan-400">13 PROMOCIONES EXCLUSIVAS</h2>
+                <h2 class="text-3xl font-black italic mb-2 uppercase text-cyan-400">PROMOCIONES EXCLUSIVAS</h2>
                 <div class="promo-grid">
                     ${promosList.map(p => `
                         <div class="promo-item">
@@ -353,7 +286,6 @@
             'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&w=1600&q=70', 
             'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&w=1600&q=70'
         ];
-        bgImg.forEach(src => { const img = new Image(); img.src = src; });
         let bgI = 0;
         const slide = document.getElementById('world-slideshow');
         if(slide) slide.style.backgroundImage = `url('${bgImg[0]}')`;
