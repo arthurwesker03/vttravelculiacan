@@ -32,7 +32,6 @@
         100% { background-position: 200% 50%; }
       }
       
-      /* Animación de BRINCO y PULSO para iconos sociales (Usada también para TikTok) */
       @keyframes contactPulseBrinco {
         0% { transform: scale(1) translateY(0); box-shadow: 0 0 0 0 rgba(0, 209, 255, 0.4); }
         25% { transform: scale(1.1) translateY(-15px); }
@@ -50,6 +49,10 @@
           text-shadow: 0 1px 0 #fff, 0 2px 0 #fff, 0 3px 0 #00D1FF, 0 4px 0 #00D1FF, 0 5px 15px rgba(255, 255, 255, 0.8);
           transform: translateY(-5px);
         }
+      }
+
+      @keyframes shineEffect {
+        100% { left: 125%; }
       }
 
       .vt-title-3d {
@@ -105,27 +108,42 @@
         filter: drop-shadow(0 0 25px rgba(0, 209, 255, 0.8));
       }
 
-      /* AJUSTE: Todo más arriba, cerca de la barra */
-      .main-content { margin-top: 300px; } /* Reducido de 350px */
+      .main-content { margin-top: 300px; }
 
       @media (max-width: 767px) {
         .logo-premium { width: 180px; left: 5px; }
         .nav-premium-inner { padding: 1rem 0.8rem; }
         .vt-title-3d { font-size: 2.1rem; }
-        .main-content { margin-top: 250px; } /* Reducido de 280px */
+        .main-content { margin-top: 250px; }
         .nav-premium-container { top: 80px; } 
       }
 
       .card-modern { 
-        transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.5s, box-shadow 0.5s; 
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
         cursor: pointer; position: relative; overflow: hidden; 
         border-radius: 2.5rem; height: 380px; border: 1px solid rgba(0,209,255,0.1);
       }
       
       .card-modern:hover { 
         transform: translateY(-15px) scale(1.05); 
-        box-shadow: 0 0 40px rgba(0,209,255,0.6); 
+        box-shadow: 0 0 30px 5px rgba(0, 209, 255, 0.6);
         border-color: #00D1FF; 
+      }
+
+      .card-modern::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+        transform: skewX(-25deg);
+        z-index: 2;
+      }
+
+      .card-modern:hover::after {
+        animation: shineEffect 0.75s;
       }
 
       .card-modern img { transition: transform 0.8s ease; width: 100%; height: 100%; object-fit: cover; }
@@ -148,7 +166,6 @@
       .icon-wa { right: 30px; background: #25D366; }
       .icon-ig { right: 110px; background: #E1306C; }
 
-      /* Estilos para la sección de TikTok (Con logo animado) */
       .tiktok-section { margin-top: 100px; padding-bottom: 100px; text-align: center; }
       .tiktok-logo-animated { 
         display: inline-flex; width: 120px; height: 120px; 
@@ -157,7 +174,7 @@
         font-size: 70px; border: 3px solid #00D1FF; 
         box-shadow: 0 0 30px rgba(0, 209, 255, 0.3);
         transition: all 0.3s ease;
-        animation: contactPulseBrinco 2.5s infinite ease-in-out; /* Mismo brinco animado */
+        animation: contactPulseBrinco 2.5s infinite ease-in-out;
       }
       .tiktok-logo-animated:hover { transform: scale(1.1); filter: brightness(1.1); }
     </style>
@@ -224,7 +241,7 @@
         ];
 
         const info = {
-            ubicacion: `<i class="fas fa-map-location-dot text-6xl text-cyan-400 mb-6"></i><h2 class="text-3xl font-black italic mb-4 uppercase text-white">DIRECCIÓN</h2><p class="text-lg mb-8 italic text-white">Estado de Sonora 1411-A, Las Quintas, 80060 Culiacán Rosales, Sin.</p><a href="https://maps.google.com/?q=VT+Travel+Culiacan" target="_blank" class="bg-cyan-400 text-slate-900 font-black py-4 px-12 rounded-full uppercase text-xs shadow-lg inline-block">Abrir Mapa</a>`,
+            ubicacion: `<i class="fas fa-map-location-dot text-6xl text-cyan-400 mb-6"></i><h2 class="text-3xl font-black italic mb-4 uppercase text-white">DIRECCIÓN</h2><p class="text-lg mb-8 italic text-white">Estado de Sonora 1411-A, Las Quintas, 80060 Culiacán Rosales, Sin.</p><a href="https://www.google.com/maps/search/?api=1&query=Estado+de+Sonora+1411-A+Las+Quintas+Culiacán" target="_blank" class="bg-cyan-400 text-slate-900 font-black py-4 px-12 rounded-full uppercase text-xs shadow-lg inline-block">Abrir Mapa</a>`,
             contacto: `<i class="fas fa-phone-volume text-6xl text-cyan-400 mb-6"></i><h2 class="text-3xl font-black italic mb-4 uppercase text-white">CONTACTO</h2><p class="text-2xl font-black text-white underline italic mb-2">667 445 3071</p><p class="text-2xl font-black text-white underline italic mb-4">667 445 3072</p><p class="text-lg text-cyan-400 italic font-bold">candyojeda@hotmail.com</p>`
         };
 
