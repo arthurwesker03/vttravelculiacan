@@ -182,6 +182,29 @@
           text-shadow: 0 0 10px rgba(0, 209, 255, 0.6);
           letter-spacing: 1.5px;
       }
+
+      /* -----------------------------------------------------------
+         PARCHE EXCLUSIVO PARA MÓVILES - EVITA QUE EL LOGO TAPE CONTENIDO
+         No modifica nada del diseño original en PC ni textos/links.
+         ----------------------------------------------------------- */
+      @media (max-width: 767px) {
+          /* Empuja el título "CATÁLOGO VT" hacia abajo para que no lo tape el logo */
+          .main-content {
+              margin-top: 180px !important; /* Ajuste fino del espacio superior */
+          }
+          
+          /* Asegura que el contenedor de la navegación (que tiene el borde animado)
+             tenga el espacio correcto en la parte superior */
+          .nav-premium-container {
+              top: 10px !important; /* Lo pega más arriba para ganar espacio */
+          }
+
+          /* Reduce ligeramente el tamaño del título en 3D para ganar espacio vertical */
+          .vt-title-3d {
+              font-size: 2.5rem !important; /* Un poco más pequeño solo en móvil */
+              margin-bottom: 10px !important;
+          }
+      }
     </style>
 </head>
 <body class="bg-slate-900 text-white">
@@ -311,7 +334,7 @@
           const navBottom = document.getElementById('mainNav').getBoundingClientRect().bottom + 10;
           document.querySelectorAll('[data-fade], #headerTitle, #tiktokSection').forEach(el => {
             if (!el) return;
-            const dist = el.getBoundingClientRect().top - navBottom;
+            const dist = El.getBoundingClientRect().top - navBottom;
             el.style.opacity = dist < 80 ? Math.max(0, Math.min(1, dist / 80)) : 1;
           });
         });
