@@ -33,6 +33,15 @@
         100% { background-position: 200% 50%; }
       }
       
+      /* Animación de BRINCO y PULSO para iconos sociales */
+      @keyframes contactPulseBrinco {
+        0% { transform: scale(1) translateY(0); box-shadow: 0 0 0 0 rgba(0, 209, 255, 0.4); }
+        25% { transform: scale(1.1) translateY(-15px); }
+        50% { transform: scale(1) translateY(0); }
+        70% { box-shadow: 0 0 0 15px rgba(0, 209, 255, 0); }
+        100% { transform: scale(1) translateY(0); box-shadow: 0 0 0 0 rgba(0, 209, 255, 0); }
+      }
+
       @keyframes textGlow3D {
         0%, 100% {
           text-shadow: 0 1px 0 #1B365D, 0 2px 0 #1B365D, 0 3px 0 #00D1FF, 0 4px 0 #00D1FF, 0 5px 10px rgba(0, 209, 255, 0.8);
@@ -127,11 +136,18 @@
       .modal-box { background: #1B365D; border: 2px solid #00D1FF; border-radius: 2.5rem; width: 100%; max-width: 500px; padding: 45px; text-align: center; position: relative; }
       #adminPanel { display:none; position:fixed; inset:0; z-index:1000; background:rgba(15, 23, 42, 0.98); padding:40px; overflow-y:auto; }
       .admin-input { background: #1e293b; border: 1px solid #334155; padding: 10px; border-radius: 10px; width: 100%; color: white; margin-bottom: 8px; }
-      .floating-icon { position: fixed; bottom: 30px; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; color: white; z-index: 500; }
+
+      .floating-icon { 
+        position: fixed; bottom: 30px; width: 65px; height: 65px; 
+        border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+        font-size: 35px; color: white; z-index: 500; 
+        transition: all 0.3s ease;
+        animation: contactPulseBrinco 2.2s infinite ease-in-out;
+      }
+      .floating-icon:hover { transform: scale(1.2) rotate(15deg); filter: brightness(1.2); animation-play-state: paused; }
       .icon-wa { right: 30px; background: #25D366; }
       .icon-ig { right: 110px; background: #E1306C; }
 
-      /* Estilos para el contenedor de TikTok */
       .tiktok-section { margin-top: 100px; padding-bottom: 100px; text-align: center; }
       .tiktok-container { max-width: 325px; margin: 0 auto; border-radius: 20px; overflow: hidden; border: 2px solid #00D1FF; box-shadow: 0 0 30px rgba(0, 209, 255, 0.3); }
     </style>
@@ -178,8 +194,7 @@
 
         <section class="tiktok-section" id="tiktokSection">
             <h2 class="text-2xl font-black italic text-cyan-400 mb-8 uppercase tracking-widest">SÍGUENOS EN TIKTOK</h2>
-            <div class="tiktok-container" id="tiktokPlayer">
-                </div>
+            <div class="tiktok-container" id="tiktokPlayer"></div>
         </section>
     </main>
 
@@ -201,16 +216,11 @@
             contacto: `<i class="fas fa-phone-volume text-6xl text-cyan-400 mb-6"></i><h2 class="text-3xl font-black italic mb-4 uppercase text-white">CONTACTO</h2><p class="text-2xl font-black text-white underline italic mb-2">667 445 3071</p><p class="text-2xl font-black text-white underline italic mb-4">667 445 3072</p><p class="text-lg text-cyan-400 italic font-bold">candyojeda@hotmail.com</p>`
         };
 
-        // Lista de IDs de tus videos de TikTok (puedes añadir más aquí)
-        const tiktokVideos = ["7406354433148407045", "7406355555555555555", "7406356666666666666"];
-
+        const tiktokVideos = ["7406354433148407045"];
         function loadRandomTikTok() {
             const randomId = tiktokVideos[Math.floor(Math.random() * tiktokVideos.length)];
             const container = document.getElementById('tiktokPlayer');
-            container.innerHTML = `
-                <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@vttravel_culiacan/video/${randomId}" data-video-id="${randomId}" style="max-width: 605px;min-width: 325px;" > 
-                    <section> </section> 
-                </blockquote>`;
+            if(container) container.innerHTML = `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@vttravel_culiacan/video/${randomId}" data-video-id="${randomId}" style="max-width: 605px;min-width: 325px;"><section></section></blockquote>`;
         }
 
         function render(data = {}) {
