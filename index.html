@@ -177,8 +177,8 @@
       .btn-promo-highlight {
           color: #00D1FF !important;
           font-weight: 900 !important;
-          text-shadow: 0 0 10px rgba(0, 209, 255, 0.5);
-          letter-spacing: 1px;
+          text-shadow: 0 0 10px rgba(0, 209, 255, 0.6);
+          letter-spacing: 1.5px;
       }
     </style>
 </head>
@@ -250,7 +250,7 @@
             {t: "EUROPA CON CRUCERO", d: "17 días / 15 noches", p: "$1,499 USD", i: "https://images.unsplash.com/photo-1548574505-5e239809ee19"},
             {t: "JAPÓN Y CHINA", d: "17 días / 14 noches", p: "$2,599 USD", i: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf"},
             {t: "DUBÁI CON JAPÓN", d: "14 días / 10 noches", p: "$1,699 USD", i: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c"},
-            {t: "CHINA Y DUBÁI", d: "13 días / 11 noches", p: "$1,599 USD", i: "https://cdn.pixabay.com/photo/2017/12/10/17/40/prague-3010407_1280.jpg"},
+            {t: "CHINA Y DUBÁI", d: "13 días / 11 noches", p: "$1,599 USD", i: "https://cdn.pixabay.com/photo/2016/11/13/12/52/dubai-1820944_1280.jpg"},
             {t: "EGIPTO FARAONES", d: "9 días / 7 noches", p: "$599 USD", i: "https://images.unsplash.com/photo-1539768942893-daf53e448371?auto=format&fit=crop&w=500&q=80"},
             {t: "TURQUÍA GOURMET", d: "15 días Especial", p: "Promo 2026", i: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200"}
         ];
@@ -298,10 +298,19 @@
             });
         }
 
-        function showPop(t){ document.getElementById('popContent').innerHTML = info[t]; document.getElementById('infoPop').style.display='flex'; }
+        function showPop(t){ 
+            document.getElementById('popContent').innerHTML = info[t]; 
+            document.getElementById('infoPop').style.display='flex'; 
+        }
         function hidePop(){ document.getElementById('infoPop').style.display='none'; }
 
-        function init() { if(window.dbOnValue) { window.dbOnValue(window.dbRef(window.db, 'catalogo'), (snap) => { if(snap.val()) render(snap.val()); }); } else { setTimeout(init, 100); } }
+        function init() { 
+            if(window.dbOnValue) { 
+                window.dbOnValue(window.dbRef(window.db, 'catalogo'), (snap) => { 
+                    if(snap.val()) render(snap.val()); 
+                }); 
+            } else { setTimeout(init, 100); }
+        }
         init();
         render();
 
