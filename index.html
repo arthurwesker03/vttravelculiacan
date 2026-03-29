@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VT Travel | Catálogo Premium</title>
+    
+    <link rel="icon" type="image/png" href="image_0.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
@@ -173,7 +176,6 @@
       .promo-item img { width: 100%; height: 150px; object-fit: cover; }
       .promo-info { padding: 12px; }
 
-      /* RESALTADO PROMOCIONES */
       .btn-promo-highlight {
           color: #00D1FF !important;
           font-weight: 900 !important;
@@ -298,19 +300,10 @@
             });
         }
 
-        function showPop(t){ 
-            document.getElementById('popContent').innerHTML = info[t]; 
-            document.getElementById('infoPop').style.display='flex'; 
-        }
+        function showPop(t){ document.getElementById('popContent').innerHTML = info[t]; document.getElementById('infoPop').style.display='flex'; }
         function hidePop(){ document.getElementById('infoPop').style.display='none'; }
 
-        function init() { 
-            if(window.dbOnValue) { 
-                window.dbOnValue(window.dbRef(window.db, 'catalogo'), (snap) => { 
-                    if(snap.val()) render(snap.val()); 
-                }); 
-            } else { setTimeout(init, 100); }
-        }
+        function init() { if(window.dbOnValue) { window.dbOnValue(window.dbRef(window.db, 'catalogo'), (snap) => { if(snap.val()) render(snap.val()); }); } else { setTimeout(init, 100); } }
         init();
         render();
 
@@ -331,12 +324,7 @@
         let bgI = 0;
         const slide = document.getElementById('world-slideshow');
         if(slide) slide.style.backgroundImage = `url('${bgImg[0]}')`;
-        setInterval(() => {
-            if(slide) { 
-                bgI = (bgI + 1) % bgImg.length;
-                slide.style.backgroundImage = `url('${bgImg[bgI]}')`; 
-            }
-        }, 6000);
+        setInterval(() => { if(slide) { bgI = (bgI + 1) % bgImg.length; slide.style.backgroundImage = `url('${bgImg[bgI]}')`; } }, 6000);
     </script>
 </body>
 </html>
