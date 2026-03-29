@@ -27,6 +27,74 @@
     </script>
 
     <style>
+      /* --- DISEÑO PREMIUM ANIMADO DE LA BARRA --- */
+      @keyframes borderRotate {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 200% 50%; }
+      }
+      
+      @keyframes contactPulse {
+        0% { box-shadow: 0 0 0 0 rgba(0, 209, 255, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(0, 209, 255, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(0, 209, 255, 0); }
+      }
+
+      .nav-premium-container {
+        position: sticky;
+        top: 20px;
+        z-index: 100;
+        margin: 20px auto;
+        width: 98%; 
+        max-width: 1700px; 
+        padding: 3px;
+        border-radius: 20px;
+        background: linear-gradient(90deg, #1B365D, #00D1FF, #1B365D, #00D1FF);
+        background-size: 200% auto;
+        animation: borderRotate 4s linear infinite;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      }
+
+      .nav-premium-inner {
+        background: rgba(15, 23, 42, 0.9);
+        backdrop-filter: blur(15px);
+        border-radius: 17px;
+        padding: 1rem 3rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        position: relative;
+      }
+
+      /* LOGO SOBRESALIENTE */
+      .logo-premium {
+        position: absolute;
+        left: 3rem;
+        top: 50%;
+        transform: translateY(-50%) scale(1);
+        height: 120px;
+        max-height: none;
+        transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        z-index: 10;
+      }
+
+      .logo-premium:hover {
+        transform: translateY(-50%) scale(1.1);
+      }
+
+      .nav-elements-right {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        margin-left: auto;
+      }
+      
+      .btn-contact-premium {
+        animation: contactPulse 2s infinite;
+      }
+
+      /* --- CARTAS Y EFECTOS --- */
       .card-modern { 
         transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); 
         cursor: pointer; position: relative; overflow: hidden; 
@@ -41,13 +109,12 @@
       .card-modern:hover { transform: translateY(-15px) scale(1.05); box-shadow: 0 0 40px rgba(0,209,255,0.6); border-color: #00D1FF; z-index: 20; }
       .card-modern img { transition: transform 0.8s ease; width: 100%; height: 100%; object-fit: cover; }
       .card-modern:hover img { transform: scale(1.1); }
-      
       .overlay-gradient { background: linear-gradient(to top, rgba(27, 54, 93, 0.9) 0%, transparent 100%); }
-      #world-slideshow { position: fixed; inset: 0; z-index: -1; opacity: 0.4; background-size: cover; background-position: center; transition: background-image 2s; }
+      #world-slideshow { position: fixed; inset: 0; z-index: -1; opacity: 0.4; background-size: cover; background-position: center; transition: background-image 2s; background-color: #0f172a; }
       
+      /* MODALES */
       .info-modal { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); align-items: center; justify-content: center; padding: 20px; }
       .modal-box { background: #1B365D; border: 2px solid #00D1FF; border-radius: 2.5rem; width: 100%; max-width: 500px; padding: 45px; text-align: center; position: relative; }
-      
       #adminPanel { display:none; position:fixed; inset:0; z-index:1000; background:rgba(15, 23, 42, 0.98); padding:40px; overflow-y:auto; backdrop-filter: blur(10px); }
       .admin-input { background: #1e293b; border: 1px solid #334155; padding: 10px; border-radius: 10px; width: 100%; color: white; margin-bottom: 8px; font-size: 13px; }
       
@@ -58,33 +125,40 @@
     </style>
 </head>
 <body class="bg-slate-900 text-white">
-
     <div id="world-slideshow"></div>
-
     <a href="https://wa.me/526673717073" target="_blank" class="floating-icon icon-wa"><i class="fab fa-whatsapp"></i></a>
     <a href="https://www.instagram.com/vttravel_viajes/" target="_blank" class="floating-icon icon-ig"><i class="fab fa-instagram"></i></a>
 
-    <nav class="bg-white/95 backdrop-blur-md p-4 sticky top-0 z-50 flex justify-between items-center px-6 md:px-20 border-b-4 border-cyan-400 shadow-2xl">
-        <img src="image_0.png" alt="VT Travel" class="h-14">
-        <div class="hidden md:flex gap-8 items-center font-black text-xs uppercase text-slate-800 italic tracking-tighter">
-            <button onclick="showPop('ubicacion')" class="hover:text-cyan-500 transition-colors"><i class="fas fa-location-dot text-cyan-400"></i> Ubicación</button>
-            <button onclick="showPop('contacto')" class="bg-slate-800 text-white px-9 py-3 rounded-full hover:bg-cyan-400 hover:text-slate-800 transition-all">Contacto</button>
-        </div>
-    </nav>
+    <div class="nav-premium-container">
+        <nav class="nav-premium-inner">
+            <img src="image_0.png" alt="VT Travel" class="logo-premium cursor-pointer">
+            <div class="nav-elements-right gap-4 md:gap-8 items-center font-black text-[10px] md:text-xs uppercase text-white italic tracking-tighter">
+                <button onclick="showPop('ubicacion')" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+                    <i class="fas fa-location-dot text-cyan-400"></i> Ubicación
+                </button>
+                <button onclick="showPop('contacto')" class="bg-cyan-500 text-slate-900 px-6 md:px-8 py-2.5 rounded-full hover:bg-white transition-all btn-contact-premium font-bold shadow-lg">
+                    Contacto
+                </button>
+            </div>
+        </nav>
+    </div>
 
     <div id="infoPop" class="info-modal" onclick="if(event.target == this) hidePop()">
-        <div class="modal-box"><button onclick="hidePop()" class="absolute top-4 right-6 text-3xl text-cyan-400">×</button><div id="popContent"></div></div>
+        <div class="modal-box">
+            <button onclick="hidePop()" class="absolute top-4 right-6 text-3xl text-cyan-400">×</button>
+            <div id="popContent"></div>
+        </div>
     </div>
 
     <div id="adminPanel">
         <div class="max-w-3xl mx-auto text-center">
-            <h2 class="text-3xl font-black italic text-cyan-400 mb-8 uppercase">Gestor Arthur</h2>
+            <h2 class="text-3xl font-black italic text-cyan-400 mb-8 uppercase tracking-widest">Gestor Arthur</h2>
             <div id="listaAdmin" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
-            <button onclick="cerrarAdmin()" class="mt-8 bg-red-500 px-10 py-3 rounded-full font-bold">CERRAR PANEL</button>
+            <button onclick="cerrarAdmin()" class="mt-8 bg-red-500 px-10 py-3 rounded-full font-bold uppercase text-xs">Cerrar Panel</button>
         </div>
     </div>
 
-    <main class="py-16 px-4 md:px-20 max-w-[1400px] mx-auto relative z-10">
+    <main class="py-12 px-4 md:px-20 max-w-[1400px] mx-auto relative z-10">
         <div class="text-center mb-12"><h1 class="text-6xl md:text-8xl font-black italic uppercase drop-shadow-2xl">CATÁLOGO <span class="text-cyan-400">VT</span></h1></div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="gridPrincipal"></div>
     </main>
@@ -103,65 +177,34 @@
         ];
 
         const info = {
-            ubicacion: `
-                <i class="fas fa-map-location-dot text-6xl text-cyan-400 mb-6"></i>
-                <h2 class="text-3xl font-black italic mb-4 uppercase">DIRECCIÓN</h2>
-                <p class="text-lg mb-8">Estado de Sonora 1411-A, Las Quintas, 80060 Culiacán Rosales, Sin.</p>
-                <a href="https://www.google.com/maps/search/?api=1&query=Vt+Travel+Culiacan+Las+Quintas" target="_blank" class="bg-cyan-400 text-slate-900 font-black py-4 px-12 rounded-full uppercase italic shadow-lg inline-block">Abrir Mapa</a>
-            `,
-            contacto: `
-                <i class="fas fa-phone-volume text-6xl text-cyan-400 mb-6"></i>
-                <h2 class="text-3xl font-black italic mb-4 uppercase">TELÉFONOS</h2>
-                <p class="text-2xl font-black text-white underline italic mb-2">667 445 3071</p>
-                <p class="text-2xl font-black text-white underline italic mb-2">667 445 3072</p>
-                <p class="text-lg text-cyan-400 italic">candyojeda@hotmail.com</p>
-            `
+            ubicacion: `<i class="fas fa-map-location-dot text-6xl text-cyan-400 mb-6"></i><h2 class="text-3xl font-black italic mb-4 uppercase text-white">DIRECCIÓN</h2><p class="text-lg mb-8 italic text-white">Estado de Sonora 1411-A, Las Quintas, 80060 Culiacán Rosales, Sin.</p><a href="https://maps.google.com/?cid=563930967972915764&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ4" target="_blank" class="bg-cyan-400 text-slate-900 font-black py-4 px-12 rounded-full uppercase text-xs shadow-lg inline-block">Abrir Mapa</a>`,
+            contacto: `<i class="fas fa-phone-volume text-6xl text-cyan-400 mb-6"></i><h2 class="text-3xl font-black italic mb-4 uppercase text-white">TELÉFONOS</h2><p class="text-2xl font-black text-white underline italic mb-2">667 445 3071</p><p class="text-2xl font-black text-white underline italic mb-4">667 445 3072</p><p class="text-lg text-cyan-400 italic font-bold">candyojeda@hotmail.com,</p>`
         };
 
-        function init() {
-            if(window.dbOnValue) {
-                window.dbOnValue(window.dbRef(window.db, 'catalogo'), (snap) => render(snap.val() || {}));
-            } else { setTimeout(init, 100); }
-        }
-        init();
-
-        function render(data) {
+        function render(data = {}) {
             const grid = document.getElementById('gridPrincipal');
             const admin = document.getElementById('listaAdmin');
             grid.innerHTML = ''; admin.innerHTML = '';
-
             cats.forEach(c => {
-                const url = data[c.id] || c.d;
-                grid.innerHTML += `
-                    <div class="card-modern ${c.s === 2 ? 'lg:col-span-2' : ''}">
-                        <img src="${url}">
-                        <div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end">
-                            <h3 class="${c.s === 2 ? 'text-4xl' : 'text-2xl'} font-black italic uppercase">${c.n}</h3>
-                        </div>
-                    </div>`;
-
-                admin.innerHTML += `
-                    <div class="bg-slate-800 p-4 rounded-3xl border border-slate-700">
-                        <p class="font-bold text-cyan-400 mb-2 text-xs uppercase italic">${c.n}</p>
-                        <input type="text" id="in-${c.id}" value="${url}" class="admin-input">
-                        <button onclick="actualizar(${c.id})" class="w-full bg-cyan-500 text-slate-900 font-bold py-2 rounded-xl text-[10px]">GUARDAR</button>
-                    </div>`;
+                const url = (data && data[c.id]) ? data[c.id] : c.d;
+                grid.innerHTML += `<div class="card-modern ${c.s === 2 ? 'lg:col-span-2' : ''}"><img src="${url}"><div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end"><h3 class="${c.s === 2 ? 'text-4xl' : 'text-2xl'} font-black italic uppercase text-white">${c.n}</h3></div></div>`;
+                admin.innerHTML += `<div class="bg-slate-800 p-4 rounded-3xl border border-slate-700 text-left"><p class="font-bold text-cyan-400 mb-2 text-[10px] uppercase italic">${c.n}</p><input type="text" id="in-${c.id}" value="${url}" class="admin-input"><button onclick="actualizar(${c.id})" class="w-full bg-cyan-500 text-slate-900 font-black py-2 rounded-xl text-[10px]">GUARDAR</button></div>`;
             });
         }
 
-        function actualizar(id) {
-            window.dbSet(window.dbRef(window.db, 'catalogo/' + id), document.getElementById(`in-${id}`).value);
-            alert("¡Actualizado!");
-        }
-
+        render();
+        function init() { if(window.dbOnValue) { window.dbOnValue(window.dbRef(window.db, 'catalogo'), (snap) => { if(snap.val()) render(snap.val()); }); } else { setTimeout(init, 100); } }
+        init();
+        function actualizar(id) { window.dbSet(window.dbRef(window.db, 'catalogo/' + id), document.getElementById(`in-${id}`).value); alert("Guardado."); }
         function showPop(t){ document.getElementById('popContent').innerHTML = info[t]; document.getElementById('infoPop').style.display='flex'; }
         function hidePop(){ document.getElementById('infoPop').style.display='none'; }
         function cerrarAdmin() { document.getElementById('adminPanel').style.display = 'none'; }
         window.addEventListener('keydown', (e) => { if(e.key === "Escape") { const p = prompt("Pass:"); if(p === "VT2026") document.getElementById('adminPanel').style.display = 'block'; } });
 
-        const bgImg = ['https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&w=1600','https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&w=1600'];
+        const bgImg = ['https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&w=1600', 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&w=1600'];
         let bgI = 0;
-        setInterval(() => { document.getElementById('world-slideshow').style.backgroundImage=`url('${bgImg[bgI]}')`; bgI = (bgI + 1) % bgImg.length; }, 6000);
+        function updateSlide() { const slide = document.getElementById('world-slideshow'); if(slide) { slide.style.backgroundImage = `url('${bgImg[bgI]}')`; bgI = (bgI + 1) % bgImg.length; new Image().src = bgImg[bgI]; } }
+        updateSlide(); setInterval(updateSlide, 6000);
     </script>
 </body>
 </html>
