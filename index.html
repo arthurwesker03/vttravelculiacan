@@ -51,7 +51,6 @@
         }
       }
 
-      /* EFECTO REFLEJO DE ESPEJO - MANTENIDO */
       .card-modern::after {
         content: "";
         position: absolute;
@@ -173,6 +172,14 @@
       .promo-item:hover { transform: scale(1.02); border-color: #00D1FF; box-shadow: 0 0 15px rgba(0, 209, 255, 0.4); }
       .promo-item img { width: 100%; height: 150px; object-fit: cover; }
       .promo-info { padding: 12px; }
+
+      /* RESALTADO PROMOCIONES */
+      .btn-promo-highlight {
+          color: #00D1FF !important;
+          font-weight: 900 !important;
+          text-shadow: 0 0 10px rgba(0, 209, 255, 0.5);
+          letter-spacing: 1px;
+      }
     </style>
 </head>
 <body class="bg-slate-900 text-white">
@@ -185,8 +192,8 @@
         <nav class="nav-premium-inner">
             <img src="image_0.png" alt="VT Travel" class="logo-premium">
             <div class="nav-elements-mobile flex gap-4 md:gap-8 items-center font-black text-[10px] md:text-xs uppercase text-white italic tracking-tighter ml-auto">
-                <button onclick="showPop('promos')" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
-                    <i class="fas fa-tag text-cyan-400"></i> Promociones
+                <button onclick="showPop('promos')" class="btn-promo-highlight hover:scale-110 transition-all flex items-center gap-1.5">
+                    <i class="fas fa-tag"></i> Promociones
                 </button>
                 <button onclick="showPop('ubicacion')" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5">
                     <i class="fas fa-location-dot text-cyan-400"></i> Ubicación
@@ -232,9 +239,8 @@
             {id: 9, n: 'Hoteles', s: 2, d: 'https://images.unsplash.com/photo-1566073771259-6a8506099945'}
         ];
 
-        // DATOS DE PROMOS CORREGIDOS (Imágenes funcionales y texto limpio)
         const promosList = [
-            {t: "PUNTA CANA", d: "7 días / 6 noches", p: "$899 USD", i: "http://googleusercontent.com/image_collection/image_retrieval/2387404808747299365_0"},
+            {t: "PUNTA CANA", d: "7 días / 6 noches", p: "$899 USD", i: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=500&q=80"},
             {t: "EUROPA MTY", d: "17 días (Salida MTY)", p: "$1,599 USD", i: "https://images.unsplash.com/photo-1493936734716-77ba6da66365"},
             {t: "ESENCIA EUROPEA", d: "17 días / 15 noches", p: "$1,499 USD", i: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad"},
             {t: "EUROPA CLÁSICA", d: "17 días / 15 noches", p: "$1,499 USD", i: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34"},
@@ -244,8 +250,8 @@
             {t: "EUROPA CON CRUCERO", d: "17 días / 15 noches", p: "$1,499 USD", i: "https://images.unsplash.com/photo-1548574505-5e239809ee19"},
             {t: "JAPÓN Y CHINA", d: "17 días / 14 noches", p: "$2,599 USD", i: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf"},
             {t: "DUBÁI CON JAPÓN", d: "14 días / 10 noches", p: "$1,699 USD", i: "https://images.unsplash.com/photo-1512453979798-5ea266f8880c"},
-            {t: "CHINA Y DUBÁI", d: "13 días / 11 noches", p: "$1,599 USD", i: "https://images.unsplash.com/photo-1509015143310-7275b28d752e"},
-            {t: "EGIPTO FARAONES", d: "9 días / 7 noches", p: "$599 USD", i: "https://images.unsplash.com/photo-1503177119275-0aa32b3a7447"},
+            {t: "CHINA Y DUBÁI", d: "13 días / 11 noches", p: "$1,599 USD", i: "https://cdn.pixabay.com/photo/2017/12/10/17/40/prague-3010407_1280.jpg"},
+            {t: "EGIPTO FARAONES", d: "9 días / 7 noches", p: "$599 USD", i: "https://images.unsplash.com/photo-1539768942893-daf53e448371?auto=format&fit=crop&w=500&q=80"},
             {t: "TURQUÍA GOURMET", d: "15 días Especial", p: "Promo 2026", i: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200"}
         ];
 
@@ -266,7 +272,7 @@
                 <div class="promo-grid">
                     ${promosList.map(p => `
                         <div class="promo-item">
-                            <img src="${p.i}">
+                            <img src="${p.i}" loading="lazy">
                             <div class="promo-info">
                                 <h4 class="font-black italic text-cyan-400 text-sm uppercase">${p.t}</h4>
                                 <p class="text-[10px] text-white opacity-70">${p.d}</p>
@@ -308,11 +314,19 @@
           });
         });
 
-        const bgImg = ['https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&w=1600', 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&w=1600'];
+        const bgImg = [
+            'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&w=1600&q=70', 
+            'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&w=1600&q=70'
+        ];
+        bgImg.forEach(src => { const img = new Image(); img.src = src; });
         let bgI = 0;
+        const slide = document.getElementById('world-slideshow');
+        if(slide) slide.style.backgroundImage = `url('${bgImg[0]}')`;
         setInterval(() => {
-            const slide = document.getElementById('world-slideshow');
-            if(slide) { slide.style.backgroundImage = `url('${bgImg[bgI]}')`; bgI = (bgI + 1) % bgImg.length; }
+            if(slide) { 
+                bgI = (bgI + 1) % bgImg.length;
+                slide.style.backgroundImage = `url('${bgImg[bgI]}')`; 
+            }
         }, 6000);
     </script>
 </body>
