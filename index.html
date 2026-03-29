@@ -3,123 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VT Travel | Agencia de Viajes Culiacán</title>
+    <title>VT Travel | Agencia de Viajes</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
-            colors: {
-              vt_oxford: '#1B365D',
-              vt_cyan: '#00D1FF',
-              vt_gold: '#FFC107',
-            }
+            colors: { vt_oxford: '#1B365D', vt_cyan: '#00D1FF', vt_gold: '#FFC107' },
+            animation: { 'float': 'floating 3.5s ease-in-out infinite' },
+            keyframes: { floating: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-20px)' } } }
           }
         }
       }
     </script>
     <style>
-      .card-zoom img { transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
-      .card-zoom:hover img { transform: scale(1.1); }
-      .overlay-gradient { background: linear-gradient(to top, rgba(27, 54, 93, 0.95) 0%, rgba(27, 54, 93, 0.4) 50%, transparent 100%); }
-      #world-slideshow {
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        z-index: -1; opacity: 0.12; filter: grayscale(100%) blur(4px);
-        background-size: cover; background-position: center;
-        transition: background-image 1.5s ease-in-out;
+      .card-modern { 
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); 
+        cursor: pointer; position: relative; overflow: hidden; border-radius: 2.5rem; 
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
       }
+      .card-modern:hover { transform: translateY(-15px) scale(1.03); box-shadow: 0 30px 60px rgba(0,209,255,0.3); }
+      .card-modern img { transition: transform 0.8s ease; width: 100%; height: 100%; object-fit: cover; }
+      .card-modern:hover img { transform: scale(1.1); }
+      .overlay-gradient { background: linear-gradient(to top, rgba(27, 54, 93, 0.9) 0%, transparent 100%); }
+      
+      #world-slideshow { 
+        position: fixed; inset: 0; z-index: -1; opacity: 0.6; /* COLOR RESTAURADO */
+        background-size: cover; background-position: center;
+        transition: background-image 2s ease-in-out; 
+      }
+
+      .modal { display: none; position: fixed; z-index: 200; inset: 0; background: rgba(0,0,0,0.95); backdrop-filter: blur(12px); }
+      .mySlides { display: none; text-align: center; }
+      .mySlides img { max-height: 75vh; border-radius: 2rem; margin: auto; border: 4px solid #00D1FF; box-shadow: 0 0 40px rgba(0,209,255,0.4); }
     </style>
 </head>
-<body class="bg-white font-sans text-slate-900">
+<body class="bg-slate-900 font-sans text-white">
 
     <div id="world-slideshow"></div>
 
-    <nav class="bg-white text-vt_oxford p-2 sticky top-0 z-50 flex justify-between items-center px-6 md:px-20 border-b-2 border-vt_cyan shadow-xl">
-        <div class="flex items-center">
-            <img src="image_0.png" alt="VT Travel Logo" class="h-16 w-auto object-contain">
-        </div>
-        
-        <div class="hidden lg:flex gap-4 items-center uppercase tracking-widest font-black text-[10px]">
-            <a href="http://googleusercontent.com/maps.google.com/3" target="_blank" class="text-vt_cyan border-2 border-vt_cyan px-4 py-2 rounded-full hover:bg-vt_cyan hover:text-white transition flex items-center gap-2">
-                <i class="fas fa-map-marker-alt"></i> Nuestra Ubicación
-            </a>
-            <a href="https://wa.me/526671234567" target="_blank" class="bg-vt_gold text-vt_oxford px-4 py-2 rounded-full hover:bg-yellow-500 transition shadow-lg flex items-center gap-2">
-                <i class="fab fa-whatsapp"></i> WhatsApp Directo
-            </a>
+    <nav class="bg-white/95 backdrop-blur-md p-4 sticky top-0 z-50 flex justify-between items-center px-6 md:px-20 border-b-4 border-vt_cyan shadow-2xl">
+        <img src="image_0.png" alt="VT Travel" class="h-14">
+        <div class="hidden md:flex gap-8 items-center font-black text-xs uppercase text-vt_oxford italic tracking-tighter">
+            <button onclick="alert('Estado de Sonora 1411-A, Las Quintas, Culiacán.')"><i class="fas fa-location-dot text-vt_cyan"></i> Culiacán</button>
+            <button class="bg-vt_oxford text-white px-8 py-3 rounded-full hover:bg-vt_cyan hover:text-vt_oxford transition-all shadow-lg uppercase">Contacto</button>
         </div>
     </nav>
 
     <main class="py-16 px-4 md:px-20 max-w-[1400px] mx-auto relative z-10">
-        <div class="mb-12 text-center">
-            <h2 class="text-4xl font-black text-vt_oxford tracking-tighter uppercase italic">Explora el mundo <span class="text-vt_gold font-light uppercase">con VT Travel</span></h2>
-            <div class="w-24 h-1 bg-vt_cyan mx-auto mt-6 rounded-full"></div>
+        <div class="text-center mb-16">
+            <h1 class="text-6xl md:text-8xl font-black italic tracking-tighter uppercase drop-shadow-2xl text-white">CATÁLOGO <span class="text-vt_cyan">VT</span></h1>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            <div class="relative group h-80 overflow-hidden rounded-3xl shadow-lg card-zoom lg:col-span-2 border-2 border-vt_cyan/30">
-                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=800" class="absolute inset-0 w-full h-full object-cover">
-                <div class="absolute inset-0 overlay-gradient p-8 flex flex-col justify-end text-white">
-                    <h3 class="text-3xl font-black italic uppercase leading-none">Playas Nacionales</h3>
-                    <p class="text-sm opacity-90">Mazatlán, Cancún y Los Cabos</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div class="card-modern h-[450px] lg:col-span-2" onclick="openModal(1)">
+                <img src="https://images.unsplash.com/photo-1506929113675-b9299d39c1f2?auto=format&fit=crop&w=1200">
+                <div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end">
+                    <h3 class="text-4xl font-black italic uppercase">Playas</h3>
                 </div>
             </div>
 
-            <div class="relative group h-80 overflow-hidden rounded-3xl shadow-lg card-zoom">
-                <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=800" class="absolute inset-0 w-full h-full object-cover">
-                <div class="absolute inset-0 overlay-gradient p-8 flex flex-col justify-end text-white">
-                    <h3 class="text-3xl font-black italic uppercase leading-none">Europa</h3>
-                    <p class="text-sm opacity-90">Tours por todo el continente</p>
+            <div class="card-modern h-[450px]" onclick="openModal(2)">
+                <img src="https://images.unsplash.com/photo-1493936734716-77ba6da66365?auto=format&fit=crop&w=800">
+                <div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end text-center">
+                    <h3 class="text-3xl font-black italic uppercase">Europa</h3>
                 </div>
             </div>
 
-            <div class="relative group h-80 overflow-hidden rounded-3xl shadow-lg card-zoom border-2 border-vt_gold/40">
-                <img src="https://images.unsplash.com/photo-1544550581-5f7ceaf7f992?q=80&w=800" class="absolute inset-0 w-full h-full object-cover">
-                <div class="absolute inset-0 overlay-gradient p-8 flex flex-col justify-end text-white">
-                    <i class="fas fa-heart text-vt_gold text-2xl mb-2"></i>
-                    <h3 class="text-3xl font-black italic uppercase">Lunas de Miel</h3>
+            <div class="card-modern h-[380px]" onclick="openModal(3)">
+                <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800">
+                <div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end">
+                    <h3 class="text-2xl font-black italic uppercase">Lunas de Miel</h3>
                 </div>
             </div>
 
-            <div class="relative group h-80 overflow-hidden rounded-3xl shadow-lg card-zoom">
-                <img src="https://images.unsplash.com/photo-1559640842225-85d111c60e6b?q=80&w=800" class="absolute inset-0 w-full h-full object-cover">
-                <div class="absolute inset-0 overlay-gradient p-8 flex flex-col justify-end text-white">
-                    <h3 class="text-3xl font-black italic uppercase leading-none">Cruceros</h3>
+            <div class="card-modern h-[380px]" onclick="openModal(4)">
+                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800">
+                <div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end">
+                    <h3 class="text-2xl font-black italic uppercase">Viajes de XV</h3>
                 </div>
             </div>
 
-             <div class="relative group h-80 overflow-hidden rounded-3xl shadow-lg card-zoom">
-                <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=800" class="absolute inset-0 w-full h-full object-cover">
-                <div class="absolute inset-0 overlay-gradient p-8 flex flex-col justify-end text-white text-right font-black italic">
-                    <h3 class="text-3xl uppercase leading-none">Asia</h3>
+            <div class="card-modern h-[380px]" onclick="openModal(5)">
+                <img src="https://images.unsplash.com/photo-1548574505-5e239809ee19?auto=format&fit=crop&w=800">
+                <div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end">
+                    <h3 class="text-2xl font-black italic uppercase">Cruceros</h3>
+                </div>
+            </div>
+
+            <div class="card-modern h-[380px]" onclick="openModal(6)">
+                <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800">
+                <div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end text-right">
+                    <h3 class="text-2xl font-black italic uppercase">Asia</h3>
+                </div>
+            </div>
+
+            <div class="card-modern h-[380px] lg:col-span-2" onclick="openModal(7)">
+                <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1200">
+                <div class="absolute inset-0 overlay-gradient p-10 flex flex-col justify-end">
+                    <h3 class="text-3xl font-black italic uppercase">África</h3>
                 </div>
             </div>
         </div>
     </main>
 
-    <a href="https://www.instagram.com/vttravel_viajes?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" class="fixed bottom-32 right-10 z-[100] bg-[#E4405F] text-white p-5 rounded-full shadow-2xl hover:scale-110 transition duration-300">
+    <a href="https://instagram.com/vttravel_viajes/" target="_blank" class="fixed bottom-32 right-8 z-[100] bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-white p-5 rounded-3xl shadow-2xl animate-float">
         <i class="fab fa-instagram text-4xl"></i>
     </a>
-
-    <a href="https://wa.me/526671234567" target="_blank" class="fixed bottom-10 right-10 z-[100] bg-[#25D366] text-white p-5 rounded-full shadow-2xl hover:scale-110 transition duration-300">
+    <a href="https://wa.me/526671234567" target="_blank" class="fixed bottom-10 right-8 z-[100] bg-[#25D366] text-white p-5 rounded-3xl shadow-2xl animate-bounce">
         <i class="fab fa-whatsapp text-4xl"></i>
     </a>
 
+    <div id="myModal" class="modal">
+        <span class="absolute top-5 right-10 text-6xl text-white cursor-pointer z-[300]" onclick="closeModal()">&times;</span>
+        <div class="relative top-1/2 -translate-y-1/2 w-full text-center" id="modal-content"></div>
+        <button class="absolute left-5 top-1/2 text-5xl text-vt_cyan z-[300]" onclick="plusSlides(-1)">❮</button>
+        <button class="absolute right-5 top-1/2 text-5xl text-vt_cyan z-[300]" onclick="plusSlides(1)">❯</button>
+    </div>
+
     <script>
-        const slideshow = document.getElementById('world-slideshow');
-        const images = [
-            'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?q=80&w=1600',
-            'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=80&w=1600',
-            'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?q=80&w=1600'
+        // SLIDESHOW FONDO COLORIDO
+        const bgImg = [
+            'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?auto=format&w=1600&q=80',
+            'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?auto=format&w=1600&q=80',
+            'https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&w=1600&q=80'
         ];
-        let i = 0;
-        function updateBg() {
-            slideshow.style.backgroundImage = `url('${images[i]}')`;
-            i = (i + 1) % images.length;
+        let bgI = 0;
+        const bgEl = document.getElementById('world-slideshow');
+        function rotateBg() { bgEl.style.backgroundImage = `url('${bgImg[bgI]}')`; bgI = (bgI + 1) % bgImg.length; }
+        rotateBg(); setInterval(rotateBg, 5000);
+
+        // FOTOS CRUCEROS ESPECÍFICAS
+        const fotos = {
+            1: [{s:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e', t:'Playas'}],
+            2: [{s:'https://images.unsplash.com/photo-1467269204594-9661b134dd2b', t:'Europa'}],
+            3: [{s:'https://images.unsplash.com/photo-1544550581-5f7ceaf7f992', t:'Lunas de Miel'}],
+            4: [{s:'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7', t:'XV Años'}],
+            5: [
+                {s:'https://images.unsplash.com/photo-1548574505-5e239809ee19', t:'Royal Caribbean'},
+                {s:'https://images.unsplash.com/photo-1559640842225-85d111c60e6b', t:'MSC Cruises'},
+                {s:'https://images.unsplash.com/photo-1519717143431-7e87515b6d5f', t:'Disney Cruise Line'},
+                {s:'https://images.unsplash.com/photo-1540541338287-41700207eda5', t:'Norwegian Cruise Line'}
+            ],
+            6: [{s:'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e', t:'Asia'}],
+            7: [{s:'https://images.unsplash.com/photo-1516426122078-c23e76319801', t:'África'}]
+        };
+
+        let sIdx = 1;
+        function openModal(id) {
+            const cont = document.getElementById('modal-content');
+            cont.innerHTML = '';
+            fotos[id].forEach(f => {
+                cont.innerHTML += `<div class="mySlides px-4"><img src="${f.s}?auto=format&w=1200&q=80" class="mx-auto max-h-[70vh] shadow-2xl animate-fade-in"><p class="text-vt_cyan text-4xl font-black mt-8 uppercase italic tracking-widest">${f.t}</p></div>`;
+            });
+            document.getElementById('myModal').style.display = 'block';
+            sIdx = 1; show(sIdx);
         }
-        updateBg();
-        setInterval(updateBg, 5000);
+        function closeModal() { document.getElementById('myModal').style.display = "none"; }
+        function plusSlides(n) { show(sIdx += n); }
+        function show(n) {
+            let s = document.getElementsByClassName("mySlides");
+            if (n > s.length) sIdx = 1; if (n < 1) sIdx = s.length;
+            for (let i=0; i<s.length; i++) s[i].style.display = "none";
+            s[sIdx-1].style.display = "block";
+        }
     </script>
 </body>
 </html>
